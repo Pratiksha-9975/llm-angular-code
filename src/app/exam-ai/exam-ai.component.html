@@ -1,0 +1,28 @@
+<section>
+<form (ngSubmit)="generateMCQ()">
+    <label for="topic">Topic:</label>
+    <input type="text" id="topic" [(ngModel)]="topic" name="topic" required>
+  
+    <label for="difficulty">Difficulty:</label>
+    <select id="difficulty" [(ngModel)]="difficulty" name="difficulty" required>
+      <option value="easy">Easy</option>
+      <option value="medium">Medium</option>
+      <option value="hard">Hard</option>
+    </select>
+  
+    <button type="submit" (click)="generateMCQ()">Generate MCQ</button>
+  </form>
+
+  <div *ngIf="showQuiz && questions.length > 0">
+    <div>
+      <h3>Question {{ currentQuestionIndex + 1 }} of {{ questions.length }}</h3>
+      <p>{{ questions[currentQuestionIndex].question }}</p>
+      <ul>
+        <li *ngFor="let option of questions[currentQuestionIndex].options">
+          <button >{{ option }}</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</section>
