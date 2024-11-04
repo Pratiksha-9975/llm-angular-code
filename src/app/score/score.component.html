@@ -1,0 +1,23 @@
+
+  <div class="score-container">
+    <h2>Your Score</h2>
+    <p>Your final score is: {{ score }} / 20</p>
+    <button (click)="viewResults()">View Results</button>
+    
+    <div *ngIf="results.length > 0">
+      <h3>Results:</h3>
+      <ul>
+        <li *ngFor="let result of results">
+          <span>{{ result.question }}</span><br>
+          <span class="correct-answer">Correct Answer: {{ result.correctAnswer }}</span><br>
+          <span class="user-answer" [ngClass]="{'correct': result.isCorrect, 'incorrect': !result.isCorrect}">
+            Your Answer: {{ result.selectedAnswer }}
+          </span>
+          <br><br>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  
+  

@@ -1,0 +1,32 @@
+<!-- src/app/components/user/user.component.html -->
+<div>
+  <h2>Fetch MCQs by Topic</h2>
+
+
+  <input type="text" [(ngModel)]="topic" placeholder="Enter topic" />
+  <button (click)="getMcqs()">Fetch MCQs</button>
+
+  <div class="mcq-wrapper">
+    <div *ngIf="mcqs.length > 0">
+      <h3>MCQs for {{ topic }}</h3>
+      <div *ngFor="let mcq of mcqs" class="mcq-container">
+        <div *ngFor="let questionObj of mcq.questions; let i = index">
+          <p class="mcq-question">Question: {{ questionObj.question }}</p>
+          <ul class="mcq-options">
+            <li *ngFor="let option of questionObj.options" class="mcq-option">
+              <label for="">
+                <input type="radio" name="question-{{ i }}" [value]="option" (change)="onAnswerSelect(i, option)" />
+                {{ option }}
+              </label>
+            </li>
+          </ul>
+          <hr />
+
+        </div>
+        <div>
+          <button (click)="submitAnswers()" type="button">Submit Answers</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

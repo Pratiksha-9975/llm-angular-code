@@ -1,28 +1,30 @@
 <section>
-<form (ngSubmit)="generateMCQ()">
-    <label for="topic">Topic:</label>
-    <input type="text" id="topic" [(ngModel)]="topic" name="topic" required>
-  
-    <label for="difficulty">Difficulty:</label>
-    <select id="difficulty" [(ngModel)]="difficulty" name="difficulty" required>
-      <option value="easy">Easy</option>
-      <option value="medium">Medium</option>
-      <option value="hard">Hard</option>
-    </select>
-  
-    <button type="submit" (click)="generateMCQ()">Generate MCQ</button>
-  </form>
+  <!-- Input fields for topic and difficulty -->
+  <label for="topic">Topic:</label>
+  <input type="text" id="topic" [(ngModel)]="topic" placeholder="Enter topic" />
 
-  <div *ngIf="showQuiz && questions.length > 0">
-    <div>
-      <h3>Question {{ currentQuestionIndex + 1 }} of {{ questions.length }}</h3>
-      <p>{{ questions[currentQuestionIndex].question }}</p>
+  <label for="difficulty">Difficulty Level:</label>
+  <select id="difficulty" [(ngModel)]="difficulty">
+    <option value="" disabled selected>Select difficulty level</option>
+    <option value="easy">Easy</option>
+    <option value="medium">Medium</option>
+    <option value="hard">Hard</option>
+  </select>
+
+  <!-- Generate MCQs button (always shown initially) -->
+  <button (click)="generateQuestions()">Generate MCQs</button>
+
+  <!-- Show questions only after they have been generated -->
+  <div *ngIf="mcqResult.length > 0">
+    <div *ngFor="let mcq of mcqResult; let i = index">
+      <p>{{ mcq.question }}</p>
       <ul>
-        <li *ngFor="let option of questions[currentQuestionIndex].options">
-          <button >{{ option }}</button>
-        </li>
+        <li *ngFor="let option of mcq.options">{{ option }}</li> 
+       
       </ul>
     </div>
-  </div>
 
+    <!-- Show submit button only when all questions are answered -->
+    <button (click)="saveMcqsToBackend()">Save</button>
+  </div>
 </section>

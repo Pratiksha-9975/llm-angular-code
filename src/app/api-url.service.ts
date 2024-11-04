@@ -7,14 +7,23 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ApiUrlService {
  
-  private apiurl="https://localhost:4000/generate-mcqs";
+  private apiurl="http://localhost:4000/generate-mcqs";
 
   constructor(private http:HttpClient) { }
 
-  generateMcq(prompt: string, difficulty: string): Observable<any> {
-    const body = { prompt, difficulty };
+  generateMcq(topic: string, difficulty: string): Observable<any> {
+    const body = { topic, difficulty };
     return this.http.post(this.apiurl, body);
   }
+
+  saveMcq(mcqData: any) {
+    return this.http.post<any>(`http://localhost:4000/api/mcq/save-mcq`, mcqData);
+  }
+  fetchMcqs() {
+    return this.http.get<{ question: string, options: string[] }[]>(`http://localhost:4000/api/mcq/fetch-mcqs`);
+  }
+  
+
 
   
 }
